@@ -28,7 +28,7 @@ function adaptRequestsToWIP(requests, order) {
  */
 function getIndexOrder(headers) {
   indexes = [];
-  neededColumnsForWIP.forEach(column => {
+  NEEDED_COLUMNS_FOR_WIP.forEach(column => {
     indexes.push(headers.findIndex((header) => header == column));
   });
 

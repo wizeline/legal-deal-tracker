@@ -19,14 +19,16 @@ function appendRows(spreadsheet, data) {
 }
 
 /**
- * Deletes rows with a ticked checkbox at a given index
- * @param {number} index - Index where the checkbox is located
+ * Deletes rows that match a given condition
+ * @param {Sheet} spreadsheet - To delete from
+ * @param {number} index - Index where the condition should be checked
+ * @param {any} condition - Condition to match
  */
-function deleteSelectedRows(spreadsheet, index) {
+function deleteRowsByCondition(spreadsheet, index, condition) {
   const rows = spreadsheet.getDataRange().getValues();
 
   for (let i = rows.length - 1; i >= 0; i--) {
-    if (rows[i][index] == true) {
+    if (rows[i][index] == condition) {
       spreadsheet.deleteRow(i + 1);
     }
   }

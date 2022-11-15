@@ -7,7 +7,7 @@ const SFDC_REQ_TAB = 'SFDC requests';
 const WIP_TAB = 'Work in progress';
 const LISTS_TAB = 'Listas';
 const CLOSED_TAB = 'Closed deals';
-const CANCELLED_TAB = 'Closed deals';
+const CANCELLED_TAB = 'Cancelled deals';
 
 // ######### Column locations #########
 // Checkbox location, starting at 0
@@ -28,12 +28,13 @@ const STATUS_DROP_DOWN = 5;
 const LISTS_SHEET = SpreadsheetApp.openById(LEGAL_DEAL_TRACKER).getSheetByName(LISTS_TAB);
 
 // Define column names and order
-const neededColumnsForWIP = [
+const NEEDED_COLUMNS_FOR_WIP = [
   'LCT_Business_Unit__r.Name',
   'LCT_Portfolio__r.Name',
   'LCT_Account__r.Name',
   'LCT_Type_of_Contract_requested__c',
   'LCT_Opportunity__r.Opportunity_Total_Revenue_Estimate__c',
+  'LCT_Opportunity__r.StageName',
   'LCT_Opportunity__r.Contract_Start_Date__c',
   'LCT_Opportunity__r.Name',
   'LCT_Opportunity__r.Id',

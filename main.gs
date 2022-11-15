@@ -1,18 +1,20 @@
 function startProgress() {
   // Getting work sheets
-  const sfdcRequests = SpreadsheetApp.openById(LEGAL_DEAL_TRACKER).getSheetByName(sfdcReqTab);
-  const wip = SpreadsheetApp.openById(LEGAL_DEAL_TRACKER).getSheetByName(wipTab);
+  const sfdcRequests = SpreadsheetApp.openById(LEGAL_DEAL_TRACKER).getSheetByName(SFDC_REQ_TAB);
+  const wip = SpreadsheetApp.openById(LEGAL_DEAL_TRACKER).getSheetByName(WIP_TAB);
 
   // Getting data from sfdc requests tab
-  const selected = getSelectedRows(sfdcRequests, requestSelectorIndex);
+  const selected = getSelectedRows(sfdcRequests, REQS_SELECTOR_INDEX);
   const requestsHeaders = findHeaders(sfdcRequests);
   const requestsIndexOrder = getIndexOrder(requestsHeaders);
 
   // Arranging columns in each row of our data
-  const adaptedRequests = adaptRequests(selected, requestsIndexOrder);
+  const adaptedRequests = adaptRequestsToWIP(selected, requestsIndexOrder);
 
-  const [prevLastRow, lastRow] = appendRows(wip, adaptedRequests);
-  setLegalValidations(prevLastRow, lastRow, wip, [LEGAL_OWNERS_DROP_DOWN,STATUS_DROP_DOWN]);
+  let prevLastRow = wip.getLastRow();
+  appendRows(wip, adaptedRequests);
+  let lastRow = wip.getLastRow();
+  setWIPLegalValidations(prevLastRow, lastRow, wip, [LEGAL_OWNERS_DROP_DOWN,STATUS_DROP_DOWN]);
 
-  deleteSelectedRows(sfdcRequests, requestSelectorIndex)
+  deleteSelectedRows(sfdcRequests, REQS_SELECTOR_INDEX)
 }
